@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "../../../backend2024"
+		},
+		{
+			"path": "../.."
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"iostream": "cpp"
+		}
+	}
+}
