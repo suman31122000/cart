@@ -1,4 +1,5 @@
 import './sign.css'
+import { Link } from 'react-router-dom';
 const Sign=()=>{
 return(
 <>
@@ -23,7 +24,7 @@ return(
             <div className='input-box'>
                 <button type="submit">sign in</button>
                 <h1>doesn't have an account?</h1>
-                <a >Register me</a>
+                <Link to="/"> <a>Register </a></Link >
             </div>
         </form>
     </div>

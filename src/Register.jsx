@@ -1,4 +1,5 @@
 import './Register.css'
+import { Link } from 'react-router-dom';
 const Register=()=>{
 return(
 <>
@@ -31,7 +32,7 @@ return(
             <div className='input-box'>
                 <button type="submit">Register</button>
                 <h1>I have an account</h1>
-                <a >Sign</a>
+                <Link to="/Sign"> <a>Sign </a></Link >
             </div>
         </form>
     </div>
