@@ -4,7 +4,8 @@ import Register from "./Register";
 import Sign from "./sign";
 import { CartProvider } from "./cart"
 import Products from "./Products";
-import Register1 from "./Register1";
+import PrivateRoute from "./protected/protected";
+import ProfilePage from "./profile";
 
 export default function Routing(){
     return(
@@ -12,9 +13,10 @@ export default function Routing(){
         <CartProvider>
             <BrowserRouter>
         <Routes>
-            <Route path="/" element={<Register1/>}/>
-            <Route path="/sign" element={<Sign/>}/>
-            <Route path="/product" element={<Products/>}/>
+            <Route path="/register" element={<Register/>}/>
+            <Route path="/" element={<Sign/>}/>
+            <Route path="/products" element={<Products/>}/>
+            <Route path="/profile" element={<PrivateRoute><ProfilePage/></PrivateRoute>}/>
         </Routes>
         </BrowserRouter>
         </CartProvider>

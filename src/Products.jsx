@@ -3,6 +3,8 @@ import { CartContext } from "./cart";
 import Displaycart from "./displaycart";
 import {toast,ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+import Profilebutton from "./utils/profilebutton";
+
 
 export default function Products() {
   const notify=()=> toast("item is added!");
@@ -26,14 +28,17 @@ export default function Products() {
 
   return (
     <div className="flex flex-col justify-center bg-gray-100">
-     <div className="flex justify-center relative items-center mb-4 mt-6">
-                        <h1 className="font-bold text-2xl uppercase text-center">SHOP</h1>
-                        <button 
-                            onClick={toggle} 
-                            className="absolute right-0 text-white text-lg  mr-5 bg-gray-700 h-8 w-16 rounded"
-                        >
-                            Cart ({cartItems.length})
-                        </button>
+     <div className="flex justify-between  items-center mb-4 mt-6 ml-10 mr-10">
+          <h1 className="font-bold text-2xl uppercase text-center">SHOP</h1>
+          <div className="flex items-center space-x-4">
+          <Profilebutton />
+          <button 
+            onClick={toggle} 
+            className="flex justify-center items-center p-2.5 gap-4 bg-gray-100 outline outline-3 outline-gray-900 outline-offset-[-3px] rounded-md border-none cursor-pointer transition duration-400 hover:bg-gray-900 hover:text-gray-100 "
+          >
+            Cart ({cartItems.length})
+          </button>
+        </div>
                     </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 px-10 py-10">
         {product.map((item) => (
@@ -54,11 +59,20 @@ export default function Products() {
               >
                 Add to cart
               </button>
+              
             </div>
           </div>
         ))}
       </div>
       <Displaycart showModal={showModal} toggle={toggle} />
+      <ToastContainer
+                position="top-center"
+                autoClose={3000}     
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeButton={false}
+                rtl={false}
+            />
     </div>
   );
 }

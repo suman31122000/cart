@@ -1,35 +1,119 @@
-import './sign.css'
-import { Link } from 'react-router-dom';
-const Sign=()=>{
-return(
-<>
-<div id='sign'>
-    <div id='heading'>
-        <h1>Sign in</h1>
-    </div>
-    <div className='form-box'>
-        <form>
-        <div className='input-box'>
-                <label>Username</label>
-                <input type="text"></input>
+import './sign.css';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useState } from 'react';
+import Nextbtn from './utils/nextbtn';
+const Sign = () => {
+    const navigate = useNavigate();
+    const [formdata, setFormdata] = useState({
+        username: '',
+        email: '',
+        password: '',
+    });
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormdata((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        // Validate input
+        if (formdata.username === '' || formdata.email === '' || formdata.password === '') {
+            alert("Please fill all the fields");
+            return;
+        }
+
+        try {
+            const response = await axios.post('http://localhost:8000/v1/login/', formdata);
+
+            if (response.status === 200) {
+                const { accessToken, refreshToken} = response.data;
+                localStorage.setItem('accessToken', accessToken);
+                localStorage.setItem('refreshToken', refreshToken);
+                console.log(accessToken, refreshToken);
+
+                alert("Login successful!");
+                navigate('/products');  // Redirect to products page after successful login
+            } else {
+                alert("Error during login");
+            }
+        } catch (error) {
+            console.log(error);
+            alert("An error occurred. Please try again.");
+        }
+    };
+
+    return (
+        <div>
+        <div><div id="sign" className="flex justify-center items-center min-h-screen bg-gradient-to-t from-[#F8F9FD] to-[#f4f7fb]">
+            <div className="max-w-sm w-full bg-white rounded-2xl p-8 shadow-lg">
+                <h1 className="text-center text-3xl font-extrabold text-[#1089D3] mb-6">Sign In</h1>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <label className="block text-gray-600 font-semibold mb-2">Username</label>
+                        <input
+                            type="text"
+                            name="username"
+                            value={formdata.username}
+                            onChange={handleChange}
+                            className="w-full p-3 rounded-lg border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-[#12B1D1] shadow-md"
+                            placeholder="Username"
+                            required
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="block text-gray-600 font-semibold mb-2">Email</label>
+                        <input
+                            type="email"
+                            name="email"
+                            value={formdata.email}
+                            onChange={handleChange}
+                            className="w-full p-3 rounded-lg border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-[#12B1D1] shadow-md"
+                            placeholder="Email"
+                            required
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <label className="block text-gray-600 font-semibold mb-2">Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            value={formdata.password}
+                            onChange={handleChange}
+                            className="w-full p-3 rounded-lg border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-[#12B1D1] shadow-md text-gray-950"
+                            placeholder="Password"
+                            required
+                        />
+                    </div>
+                    <div className="flex justify-between items-center mb-6">
+                        <button
+                            type="submit"
+                            className="w-full bg-gradient-to-r from-[#1089D3] to-[#12B1D1] text-white font-bold py-3 rounded-lg shadow-md hover:scale-105 transition transform"
+                        >
+                            Sign In
+                        </button>
+                    </div>
+                    <div className="text-center">
+                        <p className="text-sm text-gray-600">Doesn't have an account? </p>
+                        <Link to="/register" className="text-[#0099ff] text-sm font-semibold hover:underline">
+                            Register
+                        </Link>
+                    </div>
+                </form>
+            
             </div>
-            <div className='input-box'>
-                <label>email</label>
-                <input type="email"></input>
-            </div>
-            <div className='input-box'>
-                <label>password</label>
-                <input type="password"></input>
-            </div>
-            <div className='input-box'>
-                <button type="submit">sign in</button>
-                <h1>doesn't have an account?</h1>
-                <Link to="/"> <a>Register </a></Link >
-            </div>
-        </form>
-    </div>
-</div>
-</>
-)
-}
+            <Nextbtn />
+        </div>
+        </div>
+        
+        
+        </div>
+    );
+};
+
 export default Sign;
