@@ -45,8 +45,8 @@ const ProfilePage = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('accessToken'); 
-    localStorage.removeItem('refreshToken'); 
+    sessionStorage.removeItem('accessToken'); 
+    sessionStorage.removeItem('refreshToken'); 
    navigate('/');
   };
 
