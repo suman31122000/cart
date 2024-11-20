@@ -60,7 +60,7 @@ const Sign = () => {
                             name="username"
                             value={formdata.username}
                             onChange={handleChange}
-                            className="w-full p-3 rounded-lg border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-[#12B1D1] shadow-md"
+                            className="w-full p-3 rounded-lg border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-[#12B1D1] shadow-md text-gray-950"
                             placeholder="Username"
                             required
                         />
@@ -72,7 +72,7 @@ const Sign = () => {
                             name="email"
                             value={formdata.email}
                             onChange={handleChange}
-                            className="w-full p-3 rounded-lg border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-[#12B1D1] shadow-md"
+                            className="w-full p-3 rounded-lg border-2 border-transparent focus:outline-none focus:ring-2 focus:ring-[#12B1D1] shadow-md text-gray-950"
                             placeholder="Email"
                             required
                         />
