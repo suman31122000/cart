@@ -32,7 +32,7 @@ const Register = () => {
 
         try {
             console.log(formData);
-            const response = await axios.post('http://localhost:8000/v1/register/', formData);
+            const response = await axios.post('/api/register/', formData);
             if (response.status === 201) {
                 alert("Registration successful!");
                 navigate('/');  // Redirect to the login page

@@ -5,11 +5,7 @@ import { useState, useEffect } from 'react';
 
 const ProfilePage = () => {
     const navigate=useNavigate();
-
-    
-
-  const token = localStorage.getItem('accessToken'); 
-  console.log(token); 
+  const token = sessionStorage.getItem('accessToken'); 
   
   if (!token) {
     navigate('/'); 
@@ -19,9 +15,9 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000/v1/user", {
+        const response = await axios.get("/api/user", {
           headers: {
-            "Authorization": "Bearer " + localStorage.getItem('accessToken')
+            "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
           }
         });
         setData(response.data);  
@@ -32,8 +28,6 @@ const ProfilePage = () => {
 
     fetchData();  
   }, []);  
-
-  console.log(data);
 
 
   const user = {

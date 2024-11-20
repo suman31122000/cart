@@ -29,16 +29,13 @@ const Sign = () => {
         }
 
         try {
-            const response = await axios.post('http://localhost:8000/v1/login/', formdata);
+            const response = await axios.post('/api/login/', formdata);
 
             if (response.status === 200) {
                 const { accessToken, refreshToken} = response.data;
-                localStorage.setItem('accessToken', accessToken);
-                localStorage.setItem('refreshToken', refreshToken);
-                console.log(accessToken, refreshToken);
-
-                alert("Login successful!");
-                navigate('/products');  // Redirect to products page after successful login
+                sessionStorage.setItem('accessToken', accessToken);
+                sessionStorage.setItem('refreshToken', refreshToken);
+                navigate('/products');  
             } else {
                 alert("Error during login");
             }
