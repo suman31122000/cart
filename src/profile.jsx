@@ -2,6 +2,8 @@ import React from 'react';
 import { Navigate,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+const apiUrl = import.meta.env.VITE_API_URL;
+
 
 const ProfilePage = () => {
     const navigate=useNavigate();
@@ -15,7 +17,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("/api/user", {
+        const response = await axios.get(`${apiUrl}/user`, {
           headers: {
             "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
           }

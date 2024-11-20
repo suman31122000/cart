@@ -3,6 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
 import Nextbtn from './utils/nextbtn';
+const apiUrl = import.meta.env.VITE_API_URL;
+
 const Sign = () => {
     const navigate = useNavigate();
     const [formdata, setFormdata] = useState({
@@ -29,7 +31,7 @@ const Sign = () => {
         }
 
         try {
-            const response = await axios.post('/api/login/', formdata);
+            const response = await axios.post(`${apiUrl}/login/`, formdata);
 
             if (response.status === 200) {
                 const { accessToken, refreshToken} = response.data;
