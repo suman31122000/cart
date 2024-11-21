@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import Editbutton from './utils/edit.button.jsx';
 const apiUrl = import.meta.env.VITE_API_URL;
 
 
@@ -31,12 +32,12 @@ const ProfilePage = () => {
     fetchData();  
   }, []);  
 
-
+  console.log(data);
   const user = {
     name: `${data.user}`,
     image: 'https://via.placeholder.com/150',
     email: `${data.email}`,
-    address: '123 Main Street, City, Country',
+    address: `${data.address}`,
     walletBalance: '$150.00',
     orderHistory: [
       { id: 1, item: 'Product A', price: '$50.00', date: '2024-11-01' },
@@ -66,8 +67,13 @@ const ProfilePage = () => {
         </div>
 
         <div className="mt-8">
+          
           <h2 className="text-2xl font-semibold text-gray-800 mb-4">Address</h2>
-          <p className="text-gray-600">{user.address}</p>
+          <div className="flex justify-between items-center w-full">
+  <p className="text-gray-600">{user.address}</p>
+  <Editbutton />
+</div>
+
         </div>
 
         <div className="mt-8">
