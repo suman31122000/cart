@@ -18,7 +18,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/user`, {
+        const response = await axios.get(`${apiUrl}/user`, {
           headers: {
             "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
           }
@@ -32,7 +32,7 @@ const ProfilePage = () => {
     fetchData();  
   }, []);  
 
-  console.log(data.profileimage);
+  console.log(data);
   const user = {
     name: `${data.user}`,
     image: `${data.profileimage}`,
