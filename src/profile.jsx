@@ -35,7 +35,7 @@ const ProfilePage = () => {
   console.log(data);
   const user = {
     name: `${data.user}`,
-    image: 'https://via.placeholder.com/150',
+    image: `${data.profileimage}`,
     email: `${data.email}`,
     address: `${data.address}`,
     walletBalance: '$150.00',
