@@ -31,8 +31,8 @@ const Sign = () => {
         }
 
         try {
-            // const response = await axios.post(`${apiUrl}/login/`, formdata);
-               const response=await axios.post(`/api/login/`, formdata);
+            const response = await axios.post(`${apiUrl}/login/`, formdata);
+            //    const response=await axios.post(`/api/login/`, formdata);
 
             if (response.status === 200) {
                 const { accessToken, refreshToken} = response.data;
