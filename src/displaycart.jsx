@@ -15,7 +15,11 @@ export default function Displaycart({ showModal, toggle }) {
     const receipt="order_" + new Date().getTime();
     const handleclick=async()=>{
       try {
-        const response=(await axios.post(`${apiUrl}/payment/`,{amount,currency,receipt}))
+        const response=(await axios.post(`${apiUrl}/payment/`,{amount,currency,receipt},{
+          headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
+          }
+        }))
         if(!response){
           console.log("paymentresponse corrupted");
         }
