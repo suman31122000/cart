@@ -18,7 +18,8 @@ export default function Displaycart({ showModal, toggle }) {
         const response=(await axios.post(`${apiUrl}/payment/`,{amount,currency,receipt},{
           headers: {
             "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
-          }
+          },
+          withCredentials: true
         }))
         if(!response){
           console.log("paymentresponse corrupted");

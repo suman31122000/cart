@@ -1,5 +1,5 @@
 
-   
+const key = import.meta.env.RAZORPAY_KEY_ID;
     const loadRazorpayScript = () => {
         return new Promise((resolve) => {
           const script = document.createElement("script");
@@ -20,7 +20,7 @@
     
         // Payment details
         const options = {
-          key: "rzp_test_g1WoE26YoVmq5o", // Replace with your Razorpay Test Key
+          key: key, // Replace with your Razorpay Test Key
           amount: order.amount, // Amount in paise (e.g., 50000 paise = ₹500)
           currency: "INR",
           name: order.notes.user,
