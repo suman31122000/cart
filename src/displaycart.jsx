@@ -44,7 +44,7 @@ export default function Displaycart({ showModal, toggle }) {
           prefill: {
             name: `${data.user}`, // Customer name
             email: `${data.email}`, // Customer email
-            contact: `fkjsf`, // Customer phone
+            contact: `&{data.email}`, // Customer phone
           },
           theme: {
             color: "#3399cc", // Customize the theme color
