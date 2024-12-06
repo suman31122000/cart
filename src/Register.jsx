@@ -9,7 +9,7 @@ const Register = () => {
     const [formData, setFormData] = useState({
         username: '',
         email: '',
-        phoneNumber: '',
+        phonenumber: '',
         password: '',
         confirmPassword: ''
     });
@@ -74,9 +74,9 @@ const Register = () => {
                     <div className="mb-2">
                         <label className="block text-gray-600 font-semibold mb-2">Phone Number</label>
                         <input
-                            type="number"
-                            name="phoneNumber"
-                            value={formData.phoneNumber}
+                            type="text"
+                            name="phonenumber"
+                            value={formData.phonenumber}
                             onChange={handleChange}
                             className="w-full p-3 rounded-lg border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#12B1D1]"
                         />

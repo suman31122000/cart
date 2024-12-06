@@ -10,10 +10,6 @@ export default function App(){
     <>
     <ToastContainer/>
     <CartProvider>
-    {/* <Products/>
-    <Register/>
-    <Sign/> */}
-    {/* <Displaycart/> */}
     <Routing/>
     </CartProvider>
     </>

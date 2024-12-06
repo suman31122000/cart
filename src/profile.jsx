@@ -18,7 +18,7 @@ const ProfilePage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${apiUrl}/user`, {
+        const response = await axios.get(`/api/user`, {
           headers: {
             "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
           }
@@ -51,15 +51,41 @@ const ProfilePage = () => {
    navigate('/');
   };
 
+  const updateFileName=async(event)=>{
+    const file = event.target.files[0];
+    console.log(file);
+    const formData = new FormData();
+    formData.append('image', file);
+     axios.post(`/api/profileimage`, formData, {
+      headers: {
+        "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
+      }
+    })
+      .then(response => {
+        console.log(response.data);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
         <div className="flex items-center space-x-6">
+          <div>
           <img
             src={user.image}
-            alt="User Avatar"
             className="w-32 h-32 rounded-full border-4 border-gray-300"
           />
+          <form>
+    <label for="file-upload" class="custom-file-upload" className=' absolute top-40 left-36 bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded'>
+        Edit
+    </label>
+    <input type="file" id="file-upload" accept="image/*" style={{ display: 'none' }} onChange={updateFileName} />
+    </form>
+
+          </div>
           <div>
             <h1 className="text-3xl font-semibold text-gray-800">{user.name}</h1>
             <p className="text-gray-600">{user.email}</p>
