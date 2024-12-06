@@ -3,11 +3,36 @@ import { CartContext } from "./cart";
 import PropTypes from 'prop-types';
 import axios from "axios";
 import { displayRazorpay } from "./payment/payment";
+import { useState, useEffect } from 'react';
+
 
 const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function Displaycart({ showModal, toggle }) {
     const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useContext(CartContext);
+    const [data, setData] = useState({});
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(`${apiUrl}/user/`, {
+            headers: {
+              "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
+            }
+          });
+          setData(response.data);  
+        } catch (err) {
+          throw err;
+        }
+      };
+  
+      fetchData();  
+    }, []); 
+
+    const user = {
+      name: `${data.user}`,
+      phone:`${data.phonenumber}`,
+      email: `${data.email}`,
+    };
     if (!showModal) return null; 
 
     const amount=getCartTotal()*8000;
@@ -27,7 +52,7 @@ export default function Displaycart({ showModal, toggle }) {
         const orderid=response.data;
         console.log(orderid);
 
-        displayRazorpay(orderid);
+        displayRazorpay(orderid,user);
       } catch (error) {
         console.log(error,"payment corrupted in cart");        
       }

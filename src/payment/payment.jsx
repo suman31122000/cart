@@ -11,24 +11,8 @@ const key = import.meta.env.RAZORPAY_KEY_ID;
         });
       };
     
-      const displayRazorpay = async (order) => {
-        const [data, setData] = useState({});
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(`${apiUrl}/user/`, {
-          headers: {
-            "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
-          }
-        });
-        setData(response.data);  
-      } catch (err) {
-        throw err;
-      }
-    };
-
-    fetchData();  
-  }, []); 
+      const displayRazorpay = async (order,user) => {
+    
         const isScriptLoaded = await loadRazorpayScript();
     
         if (!isScriptLoaded) {
@@ -41,7 +25,7 @@ const key = import.meta.env.RAZORPAY_KEY_ID;
           key: key, // Replace with your Razorpay Test Key
           amount: order.amount, // Amount in paise (e.g., 50000 paise = ₹500)
           currency: "INR",
-          name: `${data.user}`,
+          name: `${user.name}`,
           description: "Purchase Description",
           order_id: order.id,
           image: "/your-logo.png", // Add your logo URL or path
@@ -50,9 +34,9 @@ const key = import.meta.env.RAZORPAY_KEY_ID;
             console.log(response);
           },
           prefill: {
-            name: `${data.user}`, // Customer name
-            email: `${data.email}`, // Customer email
-            contact: `${data.phonenumber}`, // Customer phone
+            name: `${user.name}`, // Customer name
+            email: `${user.email}`, // Customer email
+            contact: `${data.phone}`, // Customer phone
           },
           theme: {
             color: "#3399cc", // Customize the theme color
