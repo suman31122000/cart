@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { CartContext } from "./cart"; 
 import PropTypes from 'prop-types';
-import { useState,useEffect } from "react";
 import axios from "axios";
 import { displayRazorpay } from "./payment/payment";
 
@@ -16,7 +15,7 @@ export default function Displaycart({ showModal, toggle }) {
     const receipt="order_" + new Date().getTime();
     const handleclick=async()=>{
       try {
-        const response=await axios.post(`${apiUrl}/payment`,{amount,currency,receipt});
+        const response=(await axios.post(`${apiUrl}/payment/`,{amount,currency,receipt}))
         if(!response){
           console.log("paymentresponse corrupted");
         }
@@ -79,38 +78,6 @@ export default function Displaycart({ showModal, toggle }) {
     
     //     rzp.open();
     //   };
-
-  //     const [data, setData] = useState({});
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(`/api/user`, {
-  //         headers: {
-  //           "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
-  //         }
-  //       });
-  //       setData(response.data);  
-  //     } catch (err) {
-  //       throw err;
-  //     }
-  //   };
-
-  //   fetchData();  
-  // }, []);  
-
-  // console.log(data);
-  // const user = {
-  //   name: `${data.user}`,
-  //   image: `${data.profileimage}`,
-  //   email: `${data.email}`,
-  //   address: `${data.address}`,
-  //   walletBalance: '$150.00',
-  //   orderHistory: [
-  //     { id: 1, item: 'Product A', price: '$50.00', date: '2024-11-01' },
-  //     { id: 2, item: 'Product B', price: '$100.00', date: '2024-11-05' },
-  //   ],
-  // };
-
     return (
         <>
             <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
