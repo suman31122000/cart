@@ -3,93 +3,113 @@ import { CartContext } from "./cart";
 import PropTypes from 'prop-types';
 import { useState,useEffect } from "react";
 import axios from "axios";
+import { displayRazorpay } from "./payment/payment";
+
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export default function Displaycart({ showModal, toggle }) {
     const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useContext(CartContext);
-
-   console.log(getCartTotal());
     if (!showModal) return null; 
 
-
-    const loadRazorpayScript = () => {
-        return new Promise((resolve) => {
-          const script = document.createElement("script");
-          script.src = "https://checkout.razorpay.com/v1/checkout.js";
-          script.onload = () => resolve(true);
-          script.onerror = () => resolve(false);
-          document.body.appendChild(script);
-        });
-      };
-    
-      const displayRazorpay = async () => {
-        const isScriptLoaded = await loadRazorpayScript();
-    
-        if (!isScriptLoaded) {
-          alert("Failed to load Razorpay SDK. Please check your internet connection.");
-          return;
-        }
-    
-        // Payment details
-        const options = {
-          key: "rzp_test_g1WoE26YoVmq5o", // Replace with your Razorpay Test Key
-          amount: `${getCartTotal()*8000}`, // Amount in paise (e.g., 50000 paise = ₹500)
-          currency: "INR",
-          name: `${data.user}`,
-          description: "Purchase Description",
-          image: "/your-logo.png", // Add your logo URL or path
-          handler: (response) => {
-            alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
-            console.log(response);
-          },
-          prefill: {
-            name: `${data.user}`, // Customer name
-            email: `${data.email}`, // Customer email
-            contact: `&{data.email}`, // Customer phone
-          },
-          theme: {
-            color: "#3399cc", // Customize the theme color
-          },
-        };
-    
-        const rzp = new window.Razorpay(options);
-        rzp.on("payment.failed", (response) => {
-          alert("Payment failed. Please try again.");
-          console.error(response);
-        });
-    
-        rzp.open();
-      };
-
-      const [data, setData] = useState({});
-  useEffect(() => {
-    const fetchData = async () => {
+    const amount=getCartTotal()*8000;
+    const currency="INR";
+    const receipt="order_" + new Date().getTime();
+    const handleclick=async()=>{
       try {
-        const response = await axios.get(`/api/user`, {
-          headers: {
-            "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
-          }
-        });
-        setData(response.data);  
-      } catch (err) {
-        throw err;
+        const response=await axios.post(`${apiUrl}/payment`,{amount,currency,receipt});
+        if(!response){
+          console.log("paymentresponse corrupted");
+        }
+        const orderid=response.data;
+        console.log(orderid);
+
+        displayRazorpay(orderid);
+      } catch (error) {
+        console.log(error,"payment corrupted in cart");        
       }
-    };
 
-    fetchData();  
-  }, []);  
+    }
 
-  console.log(data);
-  const user = {
-    name: `${data.user}`,
-    image: `${data.profileimage}`,
-    email: `${data.email}`,
-    address: `${data.address}`,
-    walletBalance: '$150.00',
-    orderHistory: [
-      { id: 1, item: 'Product A', price: '$50.00', date: '2024-11-01' },
-      { id: 2, item: 'Product B', price: '$100.00', date: '2024-11-05' },
-    ],
-  };
+
+    // const loadRazorpayScript = () => {
+    //     return new Promise((resolve) => {
+    //       const script = document.createElement("script");
+    //       script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    //       script.onload = () => resolve(true);
+    //       script.onerror = () => resolve(false);
+    //       document.body.appendChild(script);
+    //     });
+    //   };
+    
+    //   const displayRazorpay = async () => {
+    //     const isScriptLoaded = await loadRazorpayScript();
+    
+    //     if (!isScriptLoaded) {
+    //       alert("Failed to load Razorpay SDK. Please check your internet connection.");
+    //       return;
+    //     }
+    
+    //     // Payment details
+    //     const options = {
+    //       key: "rzp_test_g1WoE26YoVmq5o", // Replace with your Razorpay Test Key
+    //       amount: `${getCartTotal()*8000}`, // Amount in paise (e.g., 50000 paise = ₹500)
+    //       currency: "INR",
+    //       name: `${data.user}`,
+    //       description: "Purchase Description",
+    //       image: "/your-logo.png", // Add your logo URL or path
+    //       handler: (response) => {
+    //         alert(`Payment successful! Payment ID: ${response.razorpay_payment_id}`);
+    //         console.log(response);
+    //       },
+    //       prefill: {
+    //         name: `${data.user}`, // Customer name
+    //         email: `${data.email}`, // Customer email
+    //         contact: `${data.phonenumber}`, // Customer phone
+    //       },
+    //       theme: {
+    //         color: "#3399cc", // Customize the theme color
+    //       },
+    //     };
+    
+    //     const rzp = new window.Razorpay(options);
+    //     rzp.on("payment.failed", (response) => {
+    //       alert("Payment failed. Please try again.");
+    //       console.error(response);
+    //     });
+    
+    //     rzp.open();
+    //   };
+
+  //     const [data, setData] = useState({});
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(`/api/user`, {
+  //         headers: {
+  //           "Authorization": "Bearer " + sessionStorage.getItem('accessToken')
+  //         }
+  //       });
+  //       setData(response.data);  
+  //     } catch (err) {
+  //       throw err;
+  //     }
+  //   };
+
+  //   fetchData();  
+  // }, []);  
+
+  // console.log(data);
+  // const user = {
+  //   name: `${data.user}`,
+  //   image: `${data.profileimage}`,
+  //   email: `${data.email}`,
+  //   address: `${data.address}`,
+  //   walletBalance: '$150.00',
+  //   orderHistory: [
+  //     { id: 1, item: 'Product A', price: '$50.00', date: '2024-11-01' },
+  //     { id: 2, item: 'Product B', price: '$100.00', date: '2024-11-05' },
+  //   ],
+  // };
 
     return (
         <>
@@ -126,7 +146,7 @@ export default function Displaycart({ showModal, toggle }) {
                             <button onClick={clearCart} className="bg-red-500 text-white px-4 py-2 rounded mt-2">
                                 Clear Cart
                             </button>
-                            <button onClick={displayRazorpay} style={{ padding: "10px 20px", fontSize: "16px" } } className="bg-red-500 text-white px-4 py-2 rounded mt-2 absolute bottom-8 right-7">
+                            <button onClick={handleclick} style={{ padding: "10px 20px", fontSize: "16px" } } className="bg-red-500 text-white px-4 py-2 rounded mt-2 absolute bottom-8 right-7">
         Pay Now
       </button>
                             </div>
