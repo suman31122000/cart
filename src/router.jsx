@@ -8,7 +8,6 @@ import PrivateRoute from "./protected/protected";
 import ProfilePage from "./profile";
 import ErrorPage from "./errorPage";
 import ItemPage from "./ItemPage";
-import PaymentPage from "./paymentgateway/payment";
 
 export default function Routing(){
     return(
@@ -21,7 +20,6 @@ export default function Routing(){
             <Route path="/products" element={<Products/>}/>
             <Route path="/profile" element={<PrivateRoute><ProfilePage/></PrivateRoute>}/>
             <Route path="/item" element={<ItemPage/>}/>
-            <Route path="/payment" element={<PaymentPage/>}></Route> 
             <Route path="*" element={<ErrorPage/>}/>
         </Routes>
         </BrowserRouter>
