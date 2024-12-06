@@ -36,7 +36,7 @@ const key = import.meta.env.RAZORPAY_KEY_ID;
           prefill: {
             name: `${user.name}`, // Customer name
             email: `${user.email}`, // Customer email
-            contact: `${data.phone}`, // Customer phone
+            contact: `${user.phone}`, // Customer phone
           },
           theme: {
             color: "#3399cc", // Customize the theme color
