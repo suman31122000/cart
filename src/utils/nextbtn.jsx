@@ -4,7 +4,7 @@ import { Link,useNavigate } from 'react-router-dom';
 const Nextbtn = () => {
     const navigate=useNavigate();
     const handleclick=()=>{
-        navigate('/products');
+        navigate('/');
     }
     return (
         <div>

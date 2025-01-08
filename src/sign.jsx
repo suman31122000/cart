@@ -40,7 +40,7 @@ const Sign = () => {
                 const { accessToken, refreshToken} = response.data;
                 sessionStorage.setItem('accessToken', accessToken);
                 sessionStorage.setItem('refreshToken', refreshToken);
-                navigate('/products');  
+                navigate('/');  
             } else {
                 alert("Error during login");
             }

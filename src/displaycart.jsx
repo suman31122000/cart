@@ -40,6 +40,10 @@ export default function Displaycart({ showModal, toggle }) {
     const receipt="order_" + new Date().getTime();
     const handleclick=async()=>{
       try {
+        if(!sessionStorage.getItem('accessToken')){
+          alert("Please login first");
+          navigate('/login');
+        }
         const response=(await axios.post(`${apiUrl}/payment/`,{amount,currency,receipt},{
           headers: {
             "Authorization": "Bearer " + sessionStorage.getItem('accessToken')

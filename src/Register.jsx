@@ -36,7 +36,7 @@ const Register = () => {
             const response = await axios.post(`${apiUrl}/register/`, formData);
             if (response.status === 201) {
                 alert("Registration successful!");
-                navigate('/');  // Redirect to the login page
+                navigate('/login');  // Redirect to the login page
             } else {
                 alert("Error during registration");
             }

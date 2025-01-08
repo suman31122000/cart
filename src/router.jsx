@@ -16,8 +16,8 @@ export default function Routing(){
             <BrowserRouter>
         <Routes>
             <Route path="/register" element={<Register/>}/>
-            <Route path="/" element={<Sign/>}/>
-            <Route path="/products" element={<Products/>}/>
+            <Route path="/login" element={<Sign/>}/>
+            <Route path="/" element={<Products/>}/>
             <Route path="/profile" element={<PrivateRoute><ProfilePage/></PrivateRoute>}/>
             <Route path="/item" element={<ItemPage/>}/>
             <Route path="*" element={<ErrorPage/>}/>

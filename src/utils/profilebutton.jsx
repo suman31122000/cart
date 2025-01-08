@@ -5,7 +5,12 @@ import { useNavigate } from 'react-router-dom';
 const Profilebutton = () => {
   const navigate=useNavigate();
     const handleclick = async(e) => {
-      navigate('/Profile');
+      e.preventDefault();
+      if(!sessionStorage.getItem('accessToken')){
+        alert("Please login first");
+        navigate('/login');
+      }
+      // navigate('/Profile');
     }
   return (
     <>

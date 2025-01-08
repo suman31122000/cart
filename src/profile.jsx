@@ -48,7 +48,7 @@ const ProfilePage = () => {
   const handleLogout = () => {
     sessionStorage.removeItem('accessToken'); 
     sessionStorage.removeItem('refreshToken'); 
-   navigate('/');
+   navigate('/login');
   };
 
   const updateFileName=async(event)=>{
