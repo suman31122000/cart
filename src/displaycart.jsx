@@ -38,8 +38,9 @@ export default function Displaycart({ showModal, toggle }) {
     const amount=getCartTotal()*8000;
     const currency="INR";
     const receipt="order_" + new Date().getTime();
-    const handleclick=async()=>{
+    const handleclick=async(event)=>{
       try {
+        event.preventDefault();
         if(!sessionStorage.getItem('accessToken')){
           alert("Please login first");
           navigate('/login');
