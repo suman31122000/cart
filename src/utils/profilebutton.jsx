@@ -10,7 +10,8 @@ const Profilebutton = () => {
         alert("Please login first");
         navigate('/login');
       }
-      // navigate('/Profile');
+      else
+      navigate('/Profile');
     }
   return (
     <>
